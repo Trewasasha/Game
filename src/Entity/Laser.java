@@ -7,18 +7,31 @@ public class Laser {
 
     private final int x;
     private final int y;
-    private final int width;
-    private final int height;
+    private boolean flag = false;
 
-    public Laser(int x, int y, int width, int height) {
+
+    public Laser(int x, int y) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+
     }
+
+
 
     public void draw(Graphics g) {
         g.setColor(Color.WHITE);
-        g.fillRect(x, y, width, height);
+        g.fillRect(x,
+                y,
+                50,
+                400
+        );
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }

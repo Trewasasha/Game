@@ -1,5 +1,6 @@
 package Game;
 
+import Controller.TimerBlast;
 import Entity.Blasters;
 import Entity.Laser;
 import Entity.Player;
@@ -21,8 +22,10 @@ public class PanelGame extends JPanel implements MouseMotionListener {
     private final StringGame stringGame;
     private final Player player;
     private final StringLogGame stringLogGame;
+
+    private TimerBlast timerBlast;
     private List<Blasters> blasters;
-    //private final List<Laser> lasers;
+    private List<Laser> lasers;
 
 
 
@@ -35,20 +38,12 @@ public class PanelGame extends JPanel implements MouseMotionListener {
         player = new Player(250, 500, 100);
 
         blasters = new ArrayList<>();
-        //lasers = new ArrayList<>();
+        lasers = new ArrayList<>();
 
-        // Таймер для появления бластера через 2 секунды
-        Timer firstTimer = new Timer(2000, e -> {
-            SwingUtilities.invokeLater(() -> {
-                int playerX = player.getX();
-                int playerY = player.getY();
-                blasters.add(new Blasters(playerX, playerY - 315));
-                repaint();
-            });
+        timerBlast  = new TimerBlast(player, blasters, lasers, this::repaint);
+        timerBlast.start();
 
-        });
-        firstTimer.setRepeats(false);
-        firstTimer.start();
+
 
 
     }
@@ -66,9 +61,12 @@ public class PanelGame extends JPanel implements MouseMotionListener {
         stringGame.drawString(g);
         stringLogGame.draw(g);
         player.draw(g);
-//        blasters.draw(g);
+
         for(Blasters blasters : blasters) {
             blasters.draw(g);
+        }
+        for (Laser lasers : lasers) {
+            lasers.draw(g);
         }
 
     }
@@ -80,6 +78,11 @@ public class PanelGame extends JPanel implements MouseMotionListener {
     public void mouseMoved(MouseEvent e) {
         // Обновляем позицию игрока
         player.moveTo(e.getX(), getWidth());
+        if(timerBlast.getFlag()) {
+            Laser lastLaser = lasers.getLast();
+
+            System.out.println(lastLaser.getY());
+        }
         repaint(); // Перерисовываем панель
     }
 

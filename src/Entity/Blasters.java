@@ -17,7 +17,10 @@ public class Blasters extends JPanel {
         this.y = y;
         this.setOpaque(false);
 
-        blasterImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("/resources/blasters.png"))).getImage();
+        blasterImage = new ImageIcon(Objects
+                .requireNonNull(getClass()
+                        .getResource("/resources/blasters.png")))
+                .getImage();
 
     }
 
@@ -30,5 +33,13 @@ public class Blasters extends JPanel {
                 this);
     }
 
+    @Override
+    public int getX() {
+        return x;
+    }
 
+    @Override
+    public int getY() {
+        return y;
+    }
 }

@@ -35,6 +35,14 @@ public class Player {
         return x;
     }
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "y=" + y +
+                ", x=" + x +
+                '}';
+    }
+
     public int getY() {
         return y;
     }
